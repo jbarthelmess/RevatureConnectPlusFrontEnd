@@ -1,8 +1,12 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({providedIn: 'root'})
+export class ServiceNameService {
+  constructor(private httpClient: HttpClient) { }
+
+}
+
 export class UserService {
   private userId:number = 0;
   private username:string = "";

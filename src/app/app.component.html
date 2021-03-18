@@ -1,8 +1,12 @@
 <h1>RCP</h1>
+<app-nav-bar></app-nav-bar>
 <h3>NavBar with conditional rendering of login/register/logout buttons</h3>
 <div>
+<app-dashboard></app-dashboard>
   <h3>Dashboard component with conditional rendering of user profile or all posts</h3>
   <ul>
+    <li><app-post></app-post></li>
+    <li><app-profile></app-profile></li>
     <li>Post Component duplicated for each post in posts</li>
     <li>OR Profile component with option to edit user details</li>
   </ul>
