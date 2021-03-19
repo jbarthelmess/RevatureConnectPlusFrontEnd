@@ -1,28 +1,29 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { User } from '../models/user';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({providedIn: 'root'})
 export class UserService {
-  private userId:number = 0;
-  private username:string = "";
-  private displayName:string = "";
-  private jwt:string = "";
-  constructor() { }
-
+  constructor(private httpClient: HttpClient, private user:User ) { }
   addLike(postId:number):boolean {
     return true;
   }
 
   getUsername():string {
-    return this.username;
+    return this.user.userName;
   }
 
   getUserId():number {
-    return this.userId;
+    return this.user.userId;
   }
 
-  getDisplayName():string {
-    return this.displayName;
+  // since we may not get the displayname field it is default as undefined
+  getDisplayName():any {
+    return this.user.displayName;
   }
+
+  getUserToken():any {
+    return this.user.jwt;
+  }
+
 }
