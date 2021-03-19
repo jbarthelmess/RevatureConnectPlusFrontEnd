@@ -10,6 +10,8 @@ import { PostComponent } from './components/post/post.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { TimeStampPipe } from './pipes/time-stamp.pipe';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { TimeStampPipe } from './pipes/time-stamp.pipe';
     PostComponent,
     DashboardComponent,
     ProfileComponent,
-    TimeStampPipe
+    TimeStampPipe,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
