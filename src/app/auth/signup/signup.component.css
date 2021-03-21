@@ -1,0 +1,9 @@
+
+mat-form-field, #signupBtn  {
+  width: 400px;
+  max-width: 80vw;
+}
+
+#signup-form {
+  margin-top: 2vh;
+}
