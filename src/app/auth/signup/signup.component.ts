@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -6,18 +6,12 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css']
 })
-export class SignupComponent implements OnInit {
-  signupForm:FormGroup;
-
-  constructor() { }
-
-  ngOnInit(): void {
-    this.signupForm = new FormGroup({
-      username: new FormControl('', {validators: [Validators.required, Validators.minLength(6)]}),
-      password: new FormControl('',{validators: [Validators.required, Validators.minLength(6)]}),
-      terms: new FormControl('', {validators: [Validators.required]})
-    })
-  }
+export class SignupComponent {
+  signupForm: FormGroup = new FormGroup({
+    username: new FormControl('', {validators: [Validators.required, Validators.minLength(6)]}),
+    password: new FormControl('',{validators: [Validators.required, Validators.minLength(6)]}),
+    terms: new FormControl('', {validators: [Validators.required]})
+  })
 
   onSubmit(){
     console.log(this.signupForm.value);
