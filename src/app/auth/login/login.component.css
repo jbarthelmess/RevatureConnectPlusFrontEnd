@@ -1,0 +1,8 @@
+mat-form-field, #loginBtn  {
+  width: 400px;
+  max-width: 80vw;
+}
+
+#login-form{
+  margin-top: 2vh;
+}

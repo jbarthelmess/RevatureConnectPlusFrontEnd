@@ -1,0 +1,44 @@
+<section id="signup-form" fxLayout="column" fxLayoutAlign="center center" >
+  <form
+    fxLayout="column"
+    fxLayouAlign="center center"
+    fxLayoutGap="2vh"
+    [formGroup]="signupForm"
+    (ngSubmit)="onSubmit()"
+  >
+    <mat-form-field>
+      <input
+        matInput
+        type="text"
+        placeholder="Username"
+        autocomplete="username"
+        formControlName="username"
+      >
+      <mat-error>Field must not be empty</mat-error>
+    </mat-form-field>
+    <mat-form-field hintLabel="6 Characters minimum">
+      <input
+        matInput
+        type="password"
+        placeholder="Password"
+        autocomplete="new-password"
+        formControlName="password"
+      >
+    </mat-form-field>
+    <mat-checkbox
+      fxFlexAlign="center"
+      labelPosition="before"
+      color="primary"
+      formControlName="terms"
+    >Agree to terms and conditions?
+    </mat-checkbox>
+    <button
+      id="signupBtn"
+      type="submit"
+      mat-raised-button
+      color="primary"
+      [disabled]="signupForm.invalid"
+    >Create Account
+    </button>
+  </form>
+</section>

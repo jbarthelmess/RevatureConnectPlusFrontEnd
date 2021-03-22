@@ -1,0 +1,40 @@
+<section id="login-form" fxLayout="column" fxLayoutAlign="center center" >
+  <form
+  fxLayout="column"
+  fxLayouAlign="center center"
+  fxLayoutGap="2vh"
+  [formGroup]="loginForm"
+  (ngSubmit)="onSubmit()"
+  >
+  <mat-form-field>
+    <input
+      matInput
+      type="text"
+      placeholder="Username"
+      autocomplete="username"
+      formControlName="username"
+    >
+    <mat-hint>Please enter your username</mat-hint>
+    <mat-error>Missing username</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input
+      matInput
+      type="password"
+      autocomplete="current-password"
+      placeholder="Password"
+      formControlName="password"
+    >
+    <mat-hint>Please enter your password</mat-hint>
+    <mat-error>Missing password</mat-error>
+  </mat-form-field>
+  <button
+    id="loginBtn"
+    type="submit"
+    mat-raised-button
+    color="primary"
+    [disabled]="loginForm.invalid"
+  >Login
+  </button>
+  </form>
+</section>
