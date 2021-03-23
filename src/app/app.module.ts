@@ -17,6 +17,7 @@ import { WelcomeComponent } from './dashboard/welcome/welcome.component';
 import { PostsComponent } from './dashboard/posts/posts.component';
 import { ProfileComponent } from './dashboard/profile/profile.component';
 import { AuthenticationService } from './services/authentication.service';
+import { WritePostComponent } from './dashboard/write-post/write-post.component';
 //import { WelcomeComponent } from './welcome/welcome.component';
 
 @NgModule({
@@ -29,7 +30,8 @@ import { AuthenticationService } from './services/authentication.service';
     SidenavComponent,
     WelcomeComponent,
     PostsComponent,
-    ProfileComponent
+    ProfileComponent,
+    WritePostComponent
   ],
   imports: [
     BrowserModule,
