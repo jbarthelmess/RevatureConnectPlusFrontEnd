@@ -1,0 +1,18 @@
+div {
+    background-color: rgb(253, 253, 216);
+}
+
+.main-div {
+    height: 100%;
+    overflow: hidden;
+}
+
+header {
+    font-size: 100px;
+    line-height: 100px;
+    text-align: center;
+}
+
+.rev {
+    color: rgb(201, 98, 61);
+}

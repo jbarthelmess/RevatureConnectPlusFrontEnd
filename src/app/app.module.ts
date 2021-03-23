@@ -14,6 +14,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { HeaderComponent } from './navigation/header/header.component';
 import { SidenavComponent } from './navigation/sidenav/sidenav.component';
 import { AuthenticationService } from './services/authentication.service';
+import { WelcomeComponent } from './welcome/welcome.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { AuthenticationService } from './services/authentication.service';
     SignupComponent,
     LoginComponent,
     HeaderComponent,
-    SidenavComponent
+    SidenavComponent,
+    WelcomeComponent
   ],
   imports: [
     BrowserModule,
