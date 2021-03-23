@@ -8,7 +8,7 @@ import { Comment } from '../models/comment';
   providedIn: 'root'
 })
 export class PostService {
-  base:string = "localhost:7000/";
+  base:string = "localhost:8080/";
   constructor(private httpClient: HttpClient, private post:Post) {
     
   }

@@ -4,7 +4,7 @@ import { User } from '../models/user';
 
 @Injectable({providedIn: 'root'})
 export class UserService {
-  base:string = "localhost:7000/";
+  base:string = "localhost:8080/";
   constructor(private httpClient: HttpClient, private user:User ) { }
 
   getUsername():string {
