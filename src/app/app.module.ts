@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -16,6 +16,8 @@ import { SidenavComponent } from './navigation/sidenav/sidenav.component';
 import { WelcomeComponent } from './dashboard/welcome/welcome.component';
 import { PostsComponent } from './dashboard/posts/posts.component';
 import { ProfileComponent } from './dashboard/profile/profile.component';
+import { AuthenticationService } from './services/authentication.service';
+//import { WelcomeComponent } from './welcome/welcome.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,7 @@ import { ProfileComponent } from './dashboard/profile/profile.component';
     MaterialModule,
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [{provide:HTTP_INTERCEPTORS, useClass: AuthenticationService, multi:true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
