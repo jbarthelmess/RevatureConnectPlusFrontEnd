@@ -9,7 +9,10 @@ import { MatNativeDateModule} from '@angular/material/core';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatListModule} from '@angular/material/list';
-import {MatCardModule} from '@angular/material/card';@NgModule({
+import {MatCardModule} from '@angular/material/card';
+import {MatBadgeModule} from '@angular/material/badge';
+
+@NgModule({
   imports: [
     MatButtonModule,
     MatIconModule,
@@ -21,7 +24,8 @@ import {MatCardModule} from '@angular/material/card';@NgModule({
     MatSidenavModule,
     MatToolbarModule,
     MatListModule,
-    MatCardModule
+    MatCardModule,
+    MatBadgeModule
   ],
   exports: [
     MatButtonModule,
@@ -34,7 +38,8 @@ import {MatCardModule} from '@angular/material/card';@NgModule({
     MatSidenavModule,
     MatToolbarModule,
     MatListModule,
-    MatCardModule
+    MatCardModule,
+    MatBadgeModule
   ]
 })
 export class MaterialModule {}
