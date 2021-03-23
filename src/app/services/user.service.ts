@@ -4,10 +4,8 @@ import { User } from '../models/user';
 
 @Injectable({providedIn: 'root'})
 export class UserService {
+  base:string = "localhost:7000/";
   constructor(private httpClient: HttpClient, private user:User ) { }
-  addLike(postId:number):boolean {
-    return true;
-  }
 
   getUsername():string {
     return this.user.userName;
@@ -26,4 +24,21 @@ export class UserService {
     return this.user.jwt;
   }
 
+  setUser(user:User) {
+    this.user = user;
+  }
+
+  updateUser(password:string, displayName:string) {
+    const requestBody = {
+      password,
+      displayName
+    }
+    const updatedUserJWT = this.httpClient.put(this.base+`/user`, requestBody);
+    // update JWT info
+  }
+
+  deleteUser() {
+    const deletedUser = this.httpClient.delete(this.base+`/user`);
+    // kick out to the registration page, clear JWT cache
+  }
 }
