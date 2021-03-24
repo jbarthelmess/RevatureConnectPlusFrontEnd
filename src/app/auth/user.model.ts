@@ -2,6 +2,6 @@
 export interface User{
   userId: string;
   username: string;
-  password?: string;
   displayName?:string;
+  jwt?: string;
 }
