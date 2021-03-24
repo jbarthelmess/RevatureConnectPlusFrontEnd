@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Post } from '../models/post';
-import { User } from '../models/user';
+import { User } from '../auth/user.model';
 import { Comment } from '../models/comment';
 
 @Injectable({
