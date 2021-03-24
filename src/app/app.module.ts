@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -18,6 +18,7 @@ import { PostsComponent } from './dashboard/posts/posts.component';
 import { ProfileComponent } from './dashboard/profile/profile.component';
 import { AuthService } from './auth/auth.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { AuthenticationService } from './services/authentication.service';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     MaterialModule,
     BrowserAnimationsModule
   ],
-  providers: [AuthService],
+  providers: [{provide:HTTP_INTERCEPTORS, useClass: AuthenticationService, multi:true}, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
