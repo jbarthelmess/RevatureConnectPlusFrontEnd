@@ -1,4 +1,8 @@
 <section id="login-form" fxLayout="column" fxLayoutAlign="center center" >
+  <!-- <aside fxLayout fxFlex>
+    <p>New to RCP?</p>
+    <a routerLink="/signup"><button mat-raised-button color="accent">Create an account</button></a>
+  </aside> -->
   <form
   fxLayout="column"
   fxLayouAlign="center center"
@@ -36,8 +40,5 @@
     [disabled]="loginForm.invalid"
   >Login
   </button>
-  </form>
+</form>
 </section>
-<aside>
-  <a routerLink="/signup"><button mat-raised-button color="accent">New to RCP?</button></a>
-</aside>
