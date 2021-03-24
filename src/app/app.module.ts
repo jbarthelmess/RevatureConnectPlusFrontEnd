@@ -19,6 +19,8 @@ import { ProfileComponent } from './dashboard/profile/profile.component';
 import { AuthService } from './auth/auth.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthenticationService } from './services/authentication.service';
+import { WritePostComponent } from './dashboard/write-post/write-post.component';
+//import { WelcomeComponent } from './welcome/welcome.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,8 @@ import { AuthenticationService } from './services/authentication.service';
     WelcomeComponent,
     PostsComponent,
     ProfileComponent,
-    DashboardComponent
+    DashboardComponent,
+    WritePostComponent
   ],
   imports: [
     BrowserModule,
