@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TimeStampPipe } from './pipes/time-stamp.pipe';
@@ -18,6 +17,7 @@ import { PostsComponent } from './dashboard/posts/posts.component';
 import { ProfileComponent } from './dashboard/profile/profile.component';
 import { AuthenticationService } from './services/authentication.service';
 //import { GreetingComponent } from './greeting/greeting.component';
+import { WritePostComponent } from './dashboard/write-post/write-post.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +31,7 @@ import { AuthenticationService } from './services/authentication.service';
     PostsComponent,
     ProfileComponent,
     //GreetingComponent
+    WritePostComponent
   ],
   imports: [
     BrowserModule,
