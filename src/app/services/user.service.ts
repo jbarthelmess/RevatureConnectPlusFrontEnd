@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { User } from '../models/user';
+import { User } from '../auth/user.model';
 
 @Injectable({providedIn: 'root'})
 export class UserService {
@@ -10,20 +10,16 @@ export class UserService {
   }
 
   getUsername():string {
-    return this.user.userName;
+    return this.user.username;
   }
 
-  getUserId():number {
+  getUserId():string {
     return this.user.userId;
   }
 
   // since we may not get the displayname field it is default as undefined
   getDisplayName():any {
     return this.user.displayName;
-  }
-
-  getUserToken():any {
-    return this.user.jwt;
   }
 
 }

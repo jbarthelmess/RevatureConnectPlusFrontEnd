@@ -16,6 +16,7 @@ import { SidenavComponent } from './navigation/sidenav/sidenav.component';
 import { WelcomeComponent } from './dashboard/welcome/welcome.component';
 import { PostsComponent } from './dashboard/posts/posts.component';
 import { ProfileComponent } from './dashboard/profile/profile.component';
+import { AuthService } from './auth/auth.service';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,7 @@ import { ProfileComponent } from './dashboard/profile/profile.component';
     MaterialModule,
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
