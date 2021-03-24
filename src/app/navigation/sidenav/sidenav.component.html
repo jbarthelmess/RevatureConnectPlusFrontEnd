@@ -27,20 +27,19 @@
   </a>
   <a
     mat-list-item
-    routerLink="/profile"
+    routerLink="/dashboard"
     *ngIf="isAuth"
     (click)="onClose()"
   >
     <mat-icon>
-      person
+      home
     </mat-icon>
     <span class="nav-caption">
-      Profile
+      Dashboard
     </span>
   </a>
   <a
     mat-list-item
-    routerLink="/"
     *ngIf="isAuth"
     (click)="onLogout()"
   >

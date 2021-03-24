@@ -9,13 +9,13 @@
     </button>
   </div>
   <div>
-    <a routerLink="/">LOGO</a>
+    <a routerLink="/dashboard">LOGO</a>
   </div>
   <div fxFlex flexLayout fxLayoutAlign="flex-end" fxHide.lt-sm>
     <ul fxLayout fxLayoutGap="1vw"  id="navigation-items">
       <li *ngIf="!isAuth"><a routerLink="/signup">Signup</a></li>
       <li *ngIf="!isAuth"><a routerLink="/login">Login</a></li>
-      <li *ngIf="isAuth"><a routerLink="/profile">Profile</a></li>
+      <li *ngIf="isAuth"><a routerLink="/dashboard">Dashboard</a></li>
       <li *ngIf="isAuth"><a style="cursor: pointer" (click)="onLogout()">Logout</a></li>
     </ul>
   </div>

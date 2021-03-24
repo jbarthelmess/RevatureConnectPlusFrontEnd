@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import {Subject} from 'rxjs';
 import {User} from './user.model';
 import {AuthData} from './auth-data.model';
@@ -9,7 +9,7 @@ export class AuthService {
   authChange = new Subject<boolean>();
   private user: User;
 
-  constructor( private router: Router){}
+  constructor(private router: Router) {}
 
   registerUser(authData: AuthData){
     this.user = {
@@ -28,13 +28,13 @@ export class AuthService {
   }
 
   logout() {
-    this.user = null;
     this.authChange.next(false);
+    this.user = null;
     this.router.navigate(['/login'])
   }
 
   getUser() {
-    return { ...this.user};
+    return { ...this.user };
   }
 
   isAuth() {
@@ -43,7 +43,7 @@ export class AuthService {
 
   private authSuccess() {
     this.authChange.next(true);
-    this.router.navigate(['/'])
+    this.router.navigate(['/dashboard'])
   }
 
 }

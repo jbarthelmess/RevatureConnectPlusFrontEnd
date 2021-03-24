@@ -13,10 +13,11 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { LoginComponent } from './auth/login/login.component';
 import { HeaderComponent } from './navigation/header/header.component';
 import { SidenavComponent } from './navigation/sidenav/sidenav.component';
-import { WelcomeComponent } from './dashboard/welcome/welcome.component';
+import { WelcomeComponent } from './welcome/welcome.component';
 import { PostsComponent } from './dashboard/posts/posts.component';
 import { ProfileComponent } from './dashboard/profile/profile.component';
 import { AuthService } from './auth/auth.service';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { AuthService } from './auth/auth.service';
     SidenavComponent,
     WelcomeComponent,
     PostsComponent,
-    ProfileComponent
+    ProfileComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
