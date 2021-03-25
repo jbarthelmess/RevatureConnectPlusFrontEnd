@@ -3,14 +3,21 @@
         <mat-card-title>Post Title</mat-card-title>
         <mat-card-subtitle>by: display name</mat-card-subtitle>
         <mat-card-content>
-            Post content
+            What shall we post? Shall we write a long post? I think we should. Just to see how it works. I don't want the comment textarea to overpower a post. Should the comment textarea be smaller?
         </mat-card-content>
-        <mat-card-actions>
-            <button type="submit" color="primary" mat-raised-button>Comment</button>
-            <button color="primary" matBadge="5" matBadgePosition="above after" matBadgeSize="small" matBadgeColor="accent" matBadgeOverlap="true" type="submit" mat-icon-button>
-        <mat-icon>thumb_up</mat-icon>
-      </button>
-        </mat-card-actions>
+
+        <form class="example-form">
+            <mat-card-actions>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Leave a comment</mat-label>
+                    <textarea matInput></textarea>
+                </mat-form-field><br>
+                <button type="submit" color="primary" mat-raised-button>Comment</button>
+            </mat-card-actions>
+        </form>
+        <button color="primary" matBadge="5" matBadgePosition="above after" matBadgeSize="small" matBadgeColor="accent" matBadgeOverlap="true" type="submit" mat-icon-button>
+
+        <mat-icon>thumb_up</mat-icon></button>
         <mat-card-footer>Timestamp? Edited?</mat-card-footer>
         <mat-accordion>
             <mat-expansion-panel>
