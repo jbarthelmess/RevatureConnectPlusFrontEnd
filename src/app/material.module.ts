@@ -11,6 +11,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatListModule} from '@angular/material/list';
 import {MatCardModule} from '@angular/material/card';
 import {MatBadgeModule} from '@angular/material/badge';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
   imports: [
@@ -25,7 +26,8 @@ import {MatBadgeModule} from '@angular/material/badge';
     MatToolbarModule,
     MatListModule,
     MatCardModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatExpansionModule
   ],
   exports: [
     MatButtonModule,
@@ -39,7 +41,8 @@ import {MatBadgeModule} from '@angular/material/badge';
     MatToolbarModule,
     MatListModule,
     MatCardModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatExpansionModule
   ]
 })
 export class MaterialModule {}
