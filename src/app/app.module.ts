@@ -44,7 +44,7 @@ import { WritePostComponent } from './dashboard/write-post/write-post.component'
     MaterialModule,
     BrowserAnimationsModule
   ],
-  providers: [{provide:HTTP_INTERCEPTORS, useClass: AuthenticationService, multi:true}, AuthService],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

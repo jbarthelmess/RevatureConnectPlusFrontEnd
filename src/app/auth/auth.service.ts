@@ -1,49 +1,109 @@
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {Subject} from 'rxjs';
-import {AuthData} from './auth-data.model';
+import {throwError, Subject} from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { Auth } from './auth.model';
+import {AuthData} from './auth-data.model';
+import { User } from './user.model';
+
+
+interface AuthResponseData {
+  userId: string,
+  username: string,
+  password: string,
+  displayName?:string
+}
+
 
 @Injectable()
 export class AuthService {
-  authChange = new Subject<boolean>();
-  private authUser: Auth;
+  currentUser = new Subject<User>();
+  private userBaseURL: string;
+  private authUser: User;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private http: HttpClient) {
+    this.userBaseURL = 'http://35.225.143.245:8080/user'
+  }
 
   registerUser(authData: AuthData){
-    this.authUser = {
-      username: authData.username,
-      password: authData.password,
-    };
-    this.authSuccess();
+    return this.http
+      .post<AuthResponseData>(
+        `${this.userBaseURL}/registration`,
+        authData
+      )
+      .pipe(
+        catchError(this.handleError),
+        tap(respData => {
+          this.handleAuthentication(
+            respData.userId,
+            respData.username,
+            respData.password,
+            respData.displayName
+          )
+        })
+      );
   }
 
   login(authData: AuthData){
-    this.authUser = {
-      username: authData.username,
-      password: authData.password
-    };
-    this.authSuccess();
+    return this.http
+      .post<AuthResponseData>(
+        `${this.userBaseURL}/login`,
+        authData
+      )
+      .pipe(
+        catchError(this.handleError),
+        tap(respData => {
+          this.handleAuthentication(
+            respData.userId,
+            respData.username,
+            respData.password,
+            respData.displayName
+          )
+        })
+      );
   }
 
   logout() {
-    this.authChange.next(false);
     this.authUser = null;
-    this.router.navigate(['/login'])
-  }
-
-  getUser() {
-    return { ...this.authUser };
+    this.currentUser.next(this.authUser);
+    this.router.navigate(['/login']);
   }
 
   isAuth() {
-    return this.authUser != null;
+    if(this.authUser != null){
+      return this.authUser;
+    }
+    return null;
   }
 
-  private authSuccess() {
-    this.authChange.next(true);
-    this.router.navigate(['/dashboard'])
+  private handleAuthentication(
+    userId: string,
+    username: string,
+    password: string,
+    displayName?: string
+  ) {
+    this.authUser = new User(userId, username, password, displayName);
+    this.currentUser.next(this.authUser);
+    this.router.navigate(['/dashboard']);
+  }
+
+  private handleError(errorRes: HttpErrorResponse) {
+    let errorMessage = 'An unknown error occurred!';
+    if (!errorRes.error || !errorRes.error.error) {
+      return throwError(errorMessage);
+    }
+    switch (errorRes.error.error.message) {
+      case 'USERNAME_EXISTS':
+        errorMessage = 'This email exists already';
+        break;
+      case 'USERNAME_NOT_FOUND':
+        errorMessage = 'This email does not exist.';
+        break;
+      case 'INVALID_PASSWORD':
+        errorMessage = 'This password is not correct.';
+        break;
+    }
+    return throwError(errorMessage);
   }
 
 }

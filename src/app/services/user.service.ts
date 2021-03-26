@@ -20,8 +20,8 @@ export class UserService {
     return this.user.displayName;
   }
 
-  getUserToken():any {
-    return this.user.jwt;
+  getUserToken(): string {
+    return this.user.token;
   }
 
   setUser(user:User) {
