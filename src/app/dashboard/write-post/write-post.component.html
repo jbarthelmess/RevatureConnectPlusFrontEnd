@@ -1,10 +1,10 @@
-<section class="post_card" fxLayout fxLayoutAlign="center center">
-    <mat-card fxFlex="65vw" fxLayout="column" fxLayoutAlign="center">
+<section fxFlex="65vw" class="post_card" fxLayout="column" fxLayoutAlign="center center">
+    <mat-card fxLayout="column" fxLayoutAlign="center">
         <mat-card-title>Status Update</mat-card-title>
-        <mat-form-field appearance="fill" style="width: 100%;">
-            <mat-label>What's on your mind?</mat-label>
-            <textarea matInput [(ngModel)]="newPost"></textarea>
-        </mat-form-field>
+          <mat-form-field appearance="fill" style="width: 100%;">
+              <mat-label>What's on your mind?</mat-label>
+              <textarea matInput [(ngModel)]="newPost"></textarea>
+          </mat-form-field>
         <button style="justify-content: right;" (click)="addNewPost()" color="primary" mat-raised-button>Post</button>
     </mat-card>
 </section>
