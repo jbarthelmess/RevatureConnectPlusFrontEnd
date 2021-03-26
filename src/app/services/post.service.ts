@@ -12,7 +12,7 @@ import { UserService } from './user.service';
   providedIn: 'root'
 })
 export class PostService {
-  base:string = "https://35.225.143.245:8080/";
+  base:string = "http://35.225.143.245:8080/";
   showPosts:Post[] = [];
   postChange:Subject<boolean> = new Subject<boolean>();
 

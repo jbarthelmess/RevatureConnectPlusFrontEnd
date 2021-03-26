@@ -1,0 +1,8 @@
+.example-form {
+  text-align: right;
+  margin: 1vh;
+}
+
+.example-form mat-form-field {
+  width: 100%;
+}
