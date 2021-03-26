@@ -31,23 +31,23 @@
         matBadgeSize="small"
         matBadgeColor="accent"
         matBadgeOverlap="true"
-        type="submit"
+        (click)="addLike()"
         mat-icon-button
       >
         <mat-icon>thumb_up</mat-icon>
       </button>
     </mat-card-actions>
   </form>
-  <mat-accordion>
+  <mat-accordion (click)="loadComments()">
     <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title> view comments </mat-panel-title>
         <mat-panel-description></mat-panel-description>
       </mat-expansion-panel-header>
-      <b>Display name</b><br />
-      <p>
-        I am pleased with this look. (This would be a good place for ngFor*)
-      </p>
+      <div *ngFor="let comment of fullComment">
+          <b>Display name {{comment.userId}}</b><br>
+          <p>{{comment.content}}</p>
+      </div>
     </mat-expansion-panel>
   </mat-accordion>
 </mat-card>

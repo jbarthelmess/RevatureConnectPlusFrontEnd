@@ -60,13 +60,12 @@ export class PostService {
     });
   }
 
-  addLike(user:UserData, post:Post) {
-    const like = this.httpClient.post(this.base+`/post/${post.postId}/like`, null);
-    return true;
+  addLike(postId:number) {
+    return this.httpClient.post(this.base+`/post/${postId}/like`, null).pipe(catchError(this.handleError));
   }
 
   deletePost(user:UserData, post:Post) {
-    const didDelete = this.httpClient.delete(this.base+`/post/${post.postId}`);
+    return this.httpClient.delete(this.base+`/post/${post.postId}`).pipe(catchError(this.handleError));
     // remove from the list of posts
   }
 
@@ -88,5 +87,9 @@ export class PostService {
     }
     const updatedComment = this.httpClient.put(this.base+`/post/${post.postId}/comment/${comment.commentId}`, requestBody);
     // replace updated comment
+  }
+
+  getComments(postId:number) {
+    return this.httpClient.get(this.base+`post/${postId}/comment`).pipe(catchError(this.handleError));
   }
 }
