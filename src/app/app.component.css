@@ -2,7 +2,6 @@ mat-sidenav-container,
 mat-sidenav-content,
 mat-sidenav {
     height: 100%;
-    overflow: hidden;
 }
 
 mat-sidenav {
@@ -11,5 +10,7 @@ mat-sidenav {
 }
 
 main {
-    height: 100%;
+    z-index: 999999;
+    height: 100vh;
+    background-color: rgb(238, 236, 236);
 }
