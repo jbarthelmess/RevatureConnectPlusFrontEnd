@@ -17,7 +17,7 @@ import { PostsComponent } from './dashboard/posts/posts.component';
 import { ProfileComponent } from './dashboard/profile/profile.component';
 import { AuthService } from './auth/auth.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { AuthenticationService } from './services/authentication.service';
+// import { AuthenticationService } from './services/authentication.service';
 import { WritePostComponent } from './dashboard/write-post/write-post.component';
 
 @NgModule({

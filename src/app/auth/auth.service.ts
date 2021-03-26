@@ -15,7 +15,7 @@ interface AuthResponseData {
 }
 
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class AuthService {
   currentUser = new Subject<User>();
   private userBaseURL: string;
