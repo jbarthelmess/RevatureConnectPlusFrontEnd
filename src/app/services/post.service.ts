@@ -4,15 +4,18 @@ import { Post } from '../models/post';
 import { UserData } from '../auth/user.model';
 import { Comment } from '../models/comment';
 import { catchError } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { of, Subject } from 'rxjs';
+//import { AuthService } from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PostService {
   base:string = "http://35.225.143.245:8080/";
+  showPosts:Post[] = [];
+  postChange:Subject<boolean> = new Subject<boolean>();
+
   constructor(private httpClient: HttpClient) {
-    
   }
   handleError(error:HttpErrorResponse) {
     console.log(error);
@@ -25,7 +28,18 @@ export class PostService {
   }
 
   getPosts() {
-    return this.httpClient.get(this.base+"post").pipe(catchError(this.handleError));
+    this.httpClient.get(this.base+"post").pipe(catchError(this.handleError))
+    .subscribe((data:Array<any>) =>{
+      if(data.length === 0) {
+        console.log("You are not logged in");
+      } else {
+        for(let postData of data) {
+          const newPost = new Post(postData.postId, postData.userId, postData.timestamp,  postData.content);
+          this.showPosts.push(newPost);
+        }
+        this.postChange.next(true);
+      }
+    });
   }
 
   addComment(user:UserData, post:Post, comment:string) {
@@ -40,11 +54,12 @@ export class PostService {
 
   addPost(post:string) {
     const requestBody = {
-      "contentString":post
+      "content":post
     };
-    const newPost = this.httpClient.post(this.base+`post`, requestBody);
-    // add new post or refresh the page
-    return newPost;
+    this.httpClient.post(this.base+`post`, requestBody).pipe(catchError(this.handleError))
+    .subscribe((data) => {
+      console.log(data);
+    });
   }
 
   addLike(user:UserData, post:Post) {
