@@ -5,6 +5,7 @@ export class Post{
     public postId:number,
     public userId:number,
     public postTimestamp:number|DatePipe,
-    public content:string
+    public content:string,
+    public likeCount?:number
   ){}
 }

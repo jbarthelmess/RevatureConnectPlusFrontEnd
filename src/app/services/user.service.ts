@@ -1,11 +1,16 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { User } from '../auth/user.model';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { UserData } from '../auth/user.model';
+import { Auth } from '../auth/auth.model';
+import { of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+//import { Observable } from 'rxjs';
 
 @Injectable({providedIn: 'root'})
 export class UserService {
-  base:string = "localhost:8080/";
-  constructor(private httpClient: HttpClient, private user:User ) { }
+  base:string = "http://35.225.143.245:8080/";
+  user:UserData = null;
+  constructor(private httpClient: HttpClient) { }
 
   getUsername():string {
     return this.user.username;
@@ -21,11 +26,19 @@ export class UserService {
   }
 
   getUserToken():any {
-    return this.user.jwt;
+    const jwt = this.user;
+    if(jwt === null) {
+      return "";
+    }
+    return jwt.getToken();
   }
 
-  setUser(user:User) {
-    this.user = user;
+  setUser(user) {
+    if(user === null) {
+      this.user = null;
+    } else {
+      this.user = new UserData(user.userId, user.username, user.displayName, user.password);
+    }
   }
 
   updateUser(password:string, displayName:string) {
@@ -40,5 +53,27 @@ export class UserService {
   deleteUser() {
     const deletedUser = this.httpClient.delete(this.base+`/user`);
     // kick out to the registration page, clear JWT cache
+  }
+
+  login(credentials:Auth) {
+    return this.httpClient.post<UserData>(this.base+"user/login", credentials).pipe(catchError((error:HttpErrorResponse, credentials)=>{
+      if(error.error instanceof ErrorEvent) {
+        console.log("Something happened on the client side:", error.error.message);
+      } else {
+        console.log(error.status + " with error body: ", error.error);
+      }
+      return of({});
+    }));
+  }
+
+  registerUser(credentials) {
+    return this.httpClient.post(this.base+"user/registration", credentials).pipe(catchError((error:HttpErrorResponse, credentials)=>{
+      if(error.error instanceof ErrorEvent) {
+        console.log("Something happened on the client side:", error.error.message);
+      } else {
+        console.log(error.status + " with error body: ", error.error);
+      }
+      return of({});
+    }));
   }
 }
