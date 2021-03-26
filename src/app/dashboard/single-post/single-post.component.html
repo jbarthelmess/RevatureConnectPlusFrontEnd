@@ -1,32 +1,53 @@
-<mat-card fxFlex="65vw" fxLayout="column" fxLayoutAlign="center center">
-    <mat-card-title>{{post.userId}} posted at {{post.postTimestamp}}</mat-card-title>
-    <mat-card-content>
-        {{post.content}}
-    </mat-card-content>
+<mat-card fxFlex="65vw" fxLayout="column" fxLayoutAlign="center">
+  <mat-card-title
+    >{{ post.userId }} posted at {{ post.postTimestamp }}</mat-card-title
+  >
+  <mat-card-content>
+    {{ post.content }}
+  </mat-card-content>
 
-    <form class="example-form">
-        <mat-card-actions>
-            <mat-form-field class="example-full-width">
-                <mat-label>Leave a comment</mat-label>
-                <textarea matInput [(ngModel)]="comment" name="contentString"></textarea>
-            </mat-form-field><br>
-            <button (click)="addComment()" color="primary" mat-raised-button type="button">Comment</button>
-        </mat-card-actions>
-    </form>
-    <button color="primary" matBadge={{post.likeCount}} matBadgePosition="above after" matBadgeSize="small" matBadgeColor="accent" matBadgeOverlap="true" (click)="addLike()" mat-icon-button>
-    <mat-icon>thumb_up</mat-icon></button>
-    <mat-accordion (click)="loadComments()">
-        <mat-expansion-panel>
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    view comments
-                </mat-panel-title>
-                <mat-panel-description></mat-panel-description>
-            </mat-expansion-panel-header>
-            <div *ngFor="let comment of fullComment">
-                <b>Display name {{comment.userId}}</b><br>
-                <p>{{comment.content}}</p>
-            </div>
-        </mat-expansion-panel>
-    </mat-accordion>
+  <form class="example-form">
+    <mat-card-actions>
+      <mat-form-field class="example-full-width">
+        <mat-label>Leave a comment</mat-label>
+        <textarea
+          matInput
+          [(ngModel)]="comment"
+          name="contentString"
+        ></textarea></mat-form-field
+      ><br />
+      <button
+        (click)="addComment()"
+        color="primary"
+        mat-raised-button
+        type="button"
+      >
+        Comment
+      </button>
+      <button
+        color="primary"
+        matBadge="{{ post.likeCount }}"
+        matBadgePosition="above after"
+        matBadgeSize="small"
+        matBadgeColor="accent"
+        matBadgeOverlap="true"
+        (click)="addLike()"
+        mat-icon-button
+      >
+        <mat-icon>thumb_up</mat-icon>
+      </button>
+    </mat-card-actions>
+  </form>
+  <mat-accordion (click)="loadComments()">
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title> view comments </mat-panel-title>
+        <mat-panel-description></mat-panel-description>
+      </mat-expansion-panel-header>
+      <div *ngFor="let comment of fullComment">
+          <b>Display name {{comment.userId}}</b><br>
+          <p>{{comment.content}}</p>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
 </mat-card>
