@@ -13,7 +13,7 @@
             <button (click)="addComment()" color="primary" mat-raised-button type="button">Comment</button>
         </mat-card-actions>
     </form>
-    <button color="primary" matBadge={{post.likeCount}} matBadgePosition="above after" matBadgeSize="small" matBadgeColor="accent" matBadgeOverlap="true" type="submit" mat-icon-button>
+    <button color="primary" matBadge={{post.likeCount}} matBadgePosition="above after" matBadgeSize="small" matBadgeColor="accent" matBadgeOverlap="true" (click)="addLike()" mat-icon-button>
     <mat-icon>thumb_up</mat-icon></button>
     <mat-accordion>
         <mat-expansion-panel>

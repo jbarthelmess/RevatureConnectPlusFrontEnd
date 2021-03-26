@@ -20,4 +20,16 @@ export class SinglePostComponent implements OnInit {
     this.comment = "";
   }
 
+  addLike() {
+    this.postService.addLike(this.post.postId).subscribe((data)=>{
+      for(let property in data) {
+        if(data[property] === "true") {
+          this.post.likeCount += 1;
+        } else {
+          this.post.likeCount -= 1;
+        }
+      }
+    });
+  }
+
 }
