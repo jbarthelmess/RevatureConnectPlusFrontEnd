@@ -1,10 +1,14 @@
-<section class="post_card" fxLayout fxLayoutAlign="center center">
-    <mat-card fxFlex="65vw" fxLayout="column" fxLayoutAlign="center">
+<section fxFlex="65vw" class="post_card" fxLayout="column" fxLayoutAlign="center center">
+    <mat-card fxLayout="column" fxLayoutAlign="center">
         <mat-card-title>Status Update</mat-card-title>
-        <mat-form-field appearance="fill" style="width: 100%;">
-            <mat-label>What's on your mind?</mat-label>
-            <textarea matInput></textarea>
-        </mat-form-field>
-        <button style="justify-content: right;" type="submit" color="primary" mat-raised-button>Post</button>
+        <form class="example-form">
+            <mat-card-actions>
+                <mat-form-field appearance="fill" style="width: 100%;">
+                    <mat-label>What's on your mind?</mat-label>
+                    <textarea matInput></textarea>
+                </mat-form-field>
+                <button style="width: 100%;" type="submit" color="primary" mat-raised-button>Post</button>
+            </mat-card-actions>
+        </form>
     </mat-card>
 </section>
