@@ -15,7 +15,9 @@ export class PostsComponent implements OnInit {
     this.postService.postChange.subscribe((change) =>{
       if(change) {
         this.posts = this.postService.showPosts;
+        console.log(this.posts);
       }
     });
   }
+  
 }

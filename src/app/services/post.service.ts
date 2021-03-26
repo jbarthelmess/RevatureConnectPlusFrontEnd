@@ -5,7 +5,7 @@ import { UserData } from '../auth/user.model';
 import { Comment } from '../models/comment';
 import { catchError } from 'rxjs/operators';
 import { of, Subject } from 'rxjs';
-import { AuthService } from '../auth/auth.service';
+//import { AuthService } from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,7 @@ export class PostService {
   showPosts:Post[] = [];
   postChange:Subject<boolean> = new Subject<boolean>();
 
-  constructor(private httpClient: HttpClient, private authService:AuthService) {
+  constructor(private httpClient: HttpClient) {
   }
   handleError(error:HttpErrorResponse) {
     console.log(error);
@@ -32,7 +32,6 @@ export class PostService {
     .subscribe((data:Array<any>) =>{
       if(data.length === 0) {
         console.log("You are not logged in");
-        this.authService.logout();
       } else {
         for(let postData of data) {
           const newPost = new Post(postData.postId, postData.userId, postData.timestamp,  postData.content);
@@ -57,7 +56,10 @@ export class PostService {
     const requestBody = {
       "content":post
     };
-    return this.httpClient.post(this.base+`post`, requestBody).pipe(catchError(this.handleError));
+    this.httpClient.post(this.base+`post`, requestBody).pipe(catchError(this.handleError))
+    .subscribe((data) => {
+      console.log(data);
+    });
   }
 
   addLike(user:UserData, post:Post) {

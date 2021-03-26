@@ -1,9 +1,8 @@
-<section class="post_card" fxLayout fxLayoutAlign="center center">
-    <mat-card fxFlex="65vw" fxLayout="column" fxLayoutAlign="center center">
-        <mat-card-title>Post Title</mat-card-title>
-        <mat-card-subtitle>by: display name</mat-card-subtitle>
+<section class="post_card" fxLayout="column" fxLayoutAlign="center center">
+    <mat-card *ngFor="let post of posts" fxFlex="65vw" fxLayout="column" fxLayoutAlign="center center">
+        <mat-card-title>{{post.userId}} posted at {{post.timestamp}}</mat-card-title>
         <mat-card-content>
-            What shall we post? Shall we write a long post? I think we should. Just to see how it works. I don't want the comment textarea to overpower a post. Should the comment textarea be smaller?
+            {{post.content}}
         </mat-card-content>
 
         <form class="example-form">
@@ -15,19 +14,15 @@
                 <button type="submit" color="primary" mat-raised-button>Comment</button>
             </mat-card-actions>
         </form>
-        <button color="primary" matBadge="5" matBadgePosition="above after" matBadgeSize="small" matBadgeColor="accent" matBadgeOverlap="true" type="submit" mat-icon-button>
-
+        <button color="primary" matBadge={{post.likeCount}} matBadgePosition="above after" matBadgeSize="small" matBadgeColor="accent" matBadgeOverlap="true" type="submit" mat-icon-button>
         <mat-icon>thumb_up</mat-icon></button>
-        <mat-card-footer>Timestamp? Edited?</mat-card-footer>
         <mat-accordion>
             <mat-expansion-panel>
                 <mat-expansion-panel-header>
                     <mat-panel-title>
                         view comments
                     </mat-panel-title>
-                    <mat-panel-description>
-                        13 comments
-                    </mat-panel-description>
+                    <mat-panel-description></mat-panel-description>
                 </mat-expansion-panel-header>
                 <b>Display name</b><br>
                 <p>I am pleased with this look. (This would be a good place for ngFor*)</p>

@@ -34,7 +34,11 @@ export class UserService {
   }
 
   setUser(user) {
-    this.user = new UserData(user.userId, user.username, user.displayName, user.password);
+    if(user === null) {
+      this.user = null;
+    } else {
+      this.user = new UserData(user.userId, user.username, user.displayName, user.password);
+    }
   }
 
   updateUser(password:string, displayName:string) {

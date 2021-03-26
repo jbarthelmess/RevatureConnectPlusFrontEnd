@@ -15,9 +15,8 @@ export class WritePostComponent implements OnInit {
   }
 
   addNewPost() {
-    this.postService.addPost(this.newPost).subscribe((data)=>{
-      console.log(data);
-    })
+    this.postService.addPost(this.newPost);
+    this.newPost = "";
   }
 
 }
