@@ -2,7 +2,7 @@ mat-sidenav-container,
 mat-sidenav-content,
 mat-sidenav {
     height: 100%;
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 mat-sidenav {

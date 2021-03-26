@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { PostService } from 'src/app/services/post.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-write-post',
@@ -6,10 +8,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./write-post.component.css']
 })
 export class WritePostComponent implements OnInit {
-
-  constructor() { }
+  newPost:string = "";
+  constructor(private postService:PostService, private userService:UserService) { }
 
   ngOnInit(): void {
+  }
+
+  addNewPost() {
+    this.postService.addPost(this.newPost).subscribe((data)=>{
+      console.log(data);
+    })
+    //onsole.log(this.newPost);
   }
 
 }
