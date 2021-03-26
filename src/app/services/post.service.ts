@@ -5,6 +5,7 @@ import { UserData } from '../auth/user.model';
 import { Comment } from '../models/comment';
 import { catchError } from 'rxjs/operators';
 import { of, Subject } from 'rxjs';
+import { UserService } from './user.service';
 //import { AuthService } from '../auth/auth.service';
 
 @Injectable({
@@ -15,7 +16,7 @@ export class PostService {
   showPosts:Post[] = [];
   postChange:Subject<boolean> = new Subject<boolean>();
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, private userService:UserService) {
   }
   handleError(error:HttpErrorResponse) {
     console.log(error);
@@ -34,7 +35,7 @@ export class PostService {
         console.log("You are not logged in");
       } else {
         for(let postData of data) {
-          const newPost = new Post(postData.postId, postData.userId, postData.timestamp,  postData.content);
+          const newPost = new Post(postData.postId, postData.userId, postData.timestamp,  postData.content, postData.likeCount);
           this.showPosts.push(newPost);
         }
         this.postChange.next(true);
@@ -42,14 +43,11 @@ export class PostService {
     });
   }
 
-  addComment(user:UserData, post:Post, comment:string) {
+  addComment(post:number, comment:string) {
     let requestBody = {
-      "commentString":comment,
-      "postId":post.postId,
-      "userId":user.userId
+      "commentString":comment
     };
-    const newComment = this.httpClient.post<Comment>(this.base+`/post/${post.postId}/comment`, requestBody);
-    // add new comment to the existing comments on the site
+    return this.httpClient.post<Comment>(this.base+`/post/${post}/comment`, requestBody).pipe(catchError(this.handleError));
   }
 
   addPost(post:string) {

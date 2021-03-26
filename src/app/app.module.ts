@@ -19,6 +19,7 @@ import { AuthService } from './auth/auth.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthenticationService } from './services/authentication.service';
 import { WritePostComponent } from './dashboard/write-post/write-post.component';
+import { SinglePostComponent } from './dashboard/single-post/single-post.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { WritePostComponent } from './dashboard/write-post/write-post.component'
     PostsComponent,
     ProfileComponent,
     DashboardComponent,
-    WritePostComponent
+    WritePostComponent,
+    SinglePostComponent
   ],
   imports: [
     BrowserModule,
