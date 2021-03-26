@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {throwError, Subject} from 'rxjs';
+import {throwError, BehaviorSubject} from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import {AuthData} from './auth-data.model';
@@ -17,9 +17,10 @@ interface AuthResponseData {
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
-  currentUser = new Subject<User>();
+  currentUser = new BehaviorSubject<User>(null);
   private userBaseURL: string;
-  private authUser: User;
+  private authUser: AuthData;
+  private user: User;
 
   constructor(private router: Router, private http: HttpClient) {
     this.userBaseURL = 'http://35.225.143.245:8080/user'
@@ -45,27 +46,32 @@ export class AuthService {
   }
 
   login(authData: AuthData){
+    this.authUser = {
+      username: authData.username,
+      password: authData.password
+    }
     return this.http
       .post<AuthResponseData>(
         `${this.userBaseURL}/login`,
-        authData
+        this.authUser
       )
       .pipe(
         catchError(this.handleError),
         tap(respData => {
+          console.log("working?", respData);
           this.handleAuthentication(
             respData.userId,
             respData.username,
             respData.password,
             respData.displayName
-          )
+          );
         })
       );
   }
 
   logout() {
     this.authUser = null;
-    this.currentUser.next(this.authUser);
+    this.currentUser.next(this.user);
     this.router.navigate(['/login']);
   }
 
@@ -83,7 +89,8 @@ export class AuthService {
     displayName?: string
   ) {
     this.authUser = new User(userId, username, password, displayName);
-    this.currentUser.next(this.authUser);
+    this.currentUser.next(this.user);
+    localStorage.setItem('userData', JSON.stringify(this.authUser));
     this.router.navigate(['/dashboard']);
   }
 

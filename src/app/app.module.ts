@@ -17,8 +17,10 @@ import { PostsComponent } from './dashboard/posts/posts.component';
 import { ProfileComponent } from './dashboard/profile/profile.component';
 import { AuthService } from './auth/auth.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
-// import { AuthenticationService } from './services/authentication.service';
 import { WritePostComponent } from './dashboard/write-post/write-post.component';
+import { ConnectService } from './services/connect.service';
+import { AuthInterceptorService } from './auth/auth-interceptor.service';
+import { DashboardService } from './dashboard/dashboard.service';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,16 @@ import { WritePostComponent } from './dashboard/write-post/write-post.component'
     MaterialModule,
     BrowserAnimationsModule
   ],
-  providers: [AuthService],
+  providers: [
+    AuthService,
+    ConnectService,
+    DashboardService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

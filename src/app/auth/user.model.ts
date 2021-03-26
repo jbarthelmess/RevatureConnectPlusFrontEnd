@@ -4,15 +4,15 @@ export class User {
   constructor(
    public userId: string,
    public username: string,
-   private _token: string,
+   private _password: string,
    public displayName?:string
   ){}
 
-  get token(){
-    if (this._token == null){
+  get password(){
+    if (this._password == null){
       return null;
     }
-    return this._token;
+    return this._password;
   }
 
   // set token(password: string) {
