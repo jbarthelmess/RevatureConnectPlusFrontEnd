@@ -8,16 +8,14 @@ import { PostService } from 'src/app/services/post.service';
   styleUrls: ['./posts.component.css']
 })
 export class PostsComponent implements OnInit {
-  showPosts:Post[] = [];
   constructor(private postService:PostService) { }
-
+  posts:Post[] = [];
   ngOnInit(): void {
-    this.postService.getPosts().subscribe((data:Array<any>) =>{
-      for(let postData of data) {
-        const newPost = new Post(postData.postId, postData.userId, postData.timestamp,  postData.content);
-        this.showPosts.push(newPost);
+    this.postService.getPosts();
+    this.postService.postChange.subscribe((change) =>{
+      if(change) {
+        this.posts = this.postService.showPosts;
       }
     });
   }
-
 }
