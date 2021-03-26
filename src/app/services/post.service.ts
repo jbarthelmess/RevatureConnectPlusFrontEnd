@@ -88,4 +88,8 @@ export class PostService {
     const updatedComment = this.httpClient.put(this.base+`/post/${post.postId}/comment/${comment.commentId}`, requestBody);
     // replace updated comment
   }
+
+  getComments(postId:number) {
+    return this.httpClient.get(this.base+`post/${postId}/comment`).pipe(catchError(this.handleError));
+  }
 }
