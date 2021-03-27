@@ -32,7 +32,7 @@ export class SinglePostComponent implements OnInit {
       let commentId:number = 0;
       let postId:number = this.post.postId;
       let timestamp:number = 0;
-      let displayName:string = "";
+      let displayName:string = this.userService.getDisplayName();
       for(let property in data) {
         if(property === "contentString"){
           content = data[property];
@@ -45,9 +45,6 @@ export class SinglePostComponent implements OnInit {
         }
         if(property === "timestamp") {
           timestamp = data[property];
-        }
-        if(property === "displayName") {
-          displayName = data[property];
         }
       }
       this.fullComment.push(new Comment(commentId, postId, userId, content, timestamp, displayName));

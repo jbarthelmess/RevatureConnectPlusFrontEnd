@@ -82,14 +82,13 @@ export class PostService {
       let timestamp = 0;
       let content = "";
       let likeCount = 0;
-      let displayName = "";
+      let displayName = this.userService.getDisplayName();
       for(let property in data) {
         if(property === "postId") postId = data[property];
         if(property === "userId") userId = data[property];
         if(property === "timestamp") timestamp = data[property];
         if(property === "content") content = data[property];
         if(property === "likeCount") likeCount = data[property];
-        if(property === "displayName") displayName = data[property];
       }
       const newPost = new Post(postId, userId, timestamp, content, likeCount, displayName);
       this.showPosts = [newPost, ...this.showPosts];
