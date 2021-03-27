@@ -11,11 +11,11 @@ export class PostsComponent implements OnInit {
   constructor(private postService:PostService) { }
   posts:Post[] = [];
   ngOnInit(): void {
-    this.postService.postRemove.subscribe((change) =>{
-      this.posts.splice(change, 1);
-    });
     this.postService.postAdd.subscribe((change) =>{
       this.posts = [change, ...this.posts];
+    });
+    this.postService.postRemove.subscribe((removed)=> {
+      this.posts.splice(removed, 1);
     });
     this.postService.getPosts();
   }
