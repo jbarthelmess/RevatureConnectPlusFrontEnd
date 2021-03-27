@@ -14,7 +14,8 @@ import { UserService } from './user.service';
 export class PostService {
   base:string = "http://35.225.143.245:8080/";
   showPosts:Post[] = [];
-  postChange:Subject<boolean> = new Subject<boolean>();
+  postAdd:Subject<Post> = new Subject<Post>();
+  postRemove:Subject<number> = new Subject<number>();
 
   constructor(private httpClient: HttpClient, private userService:UserService) {
   }
@@ -28,6 +29,24 @@ export class PostService {
     return of({});
   }
 
+  // insertion sort should be good enough for now
+  sortPostsByTimeStamp(posts:Post[]): Post[] {
+    const sorted:Post[] = [];
+    while(posts.length > 0) {
+      let lowestPost = posts[0];
+      let index = 0;
+      for(let i = 1; i < posts.length; i++) {
+        if(posts[i].postTimestamp > lowestPost.postTimestamp) {
+          lowestPost = posts[i];
+          index = i;
+        }
+      }
+      sorted.push(lowestPost);
+      posts.splice(index, 1);
+    }
+    return sorted;
+  }
+
   getPosts() {
     this.httpClient.get(this.base+"post").pipe(catchError(this.handleError))
     .subscribe((data:Array<any>) =>{
@@ -38,16 +57,19 @@ export class PostService {
           const newPost = new Post(postData.postId, postData.userId, postData.timestamp,  postData.content, postData.likeCount);
           this.showPosts.push(newPost);
         }
-        this.postChange.next(true);
+        this.showPosts = this.sortPostsByTimeStamp(this.showPosts);
+        for(let i = this.showPosts.length-1; i > -1 ; i--) {
+          this.postAdd.next(this.showPosts[i]);
+        }
       }
     });
   }
 
   addComment(post:number, comment:string) {
     let requestBody = {
-      "commentString":comment
+      "contentString":comment
     };
-    return this.httpClient.post<Comment>(this.base+`/post/${post}/comment`, requestBody).pipe(catchError(this.handleError));
+    return this.httpClient.post<Comment>(this.base+`post/${post}/comment`, requestBody).pipe(catchError(this.handleError));
   }
 
   addPost(post:string) {
@@ -56,36 +78,56 @@ export class PostService {
     };
     this.httpClient.post(this.base+`post`, requestBody).pipe(catchError(this.handleError))
     .subscribe((data) => {
-      console.log(data);
+      let postId = 0;
+      let userId = 0;
+      let timestamp = 0;
+      let content = "";
+      let likeCount = 0;
+      for(let property in data) {
+        if(property === "postId") postId = data[property];
+        if(property === "userId") userId = data[property];
+        if(property === "timestamp") timestamp = data[property];
+        if(property === "content") content = data[property];
+        if(property === "likeCount") likeCount = data[property];
+      }
+      const newPost = new Post(postId, userId, timestamp, content, likeCount)
+      this.showPosts = [newPost, ...this.showPosts];
+      this.postAdd.next(newPost);
     });
   }
 
   addLike(postId:number) {
-    return this.httpClient.post(this.base+`/post/${postId}/like`, null).pipe(catchError(this.handleError));
+    return this.httpClient.post(this.base+`post/${postId}/like`, null).pipe(catchError(this.handleError));
   }
 
-  deletePost(user:UserData, post:Post) {
-    return this.httpClient.delete(this.base+`/post/${post.postId}`).pipe(catchError(this.handleError));
-    // remove from the list of posts
+  deletePost(postId:number) {
+    this.httpClient.delete(this.base+`post/${postId}`).pipe(catchError(this.handleError)).subscribe((data) =>{
+      for(let i = 0; i < this.showPosts.length; i++) {
+        if(this.showPosts[i].postId === postId) {
+          this.showPosts.splice(i, 1);
+          this.postRemove.next(i);
+          break;
+        }
+      }
+    });
   }
 
-  deleteComment(user:UserData, post:Post, comment:Comment) {
-    const didDelete = this.httpClient.delete(this.base+`/post/${post.postId}/comment/${comment.commentId}`);
-    // remove from the list of comments
+  deleteComment(postId:number, commentId:number) {
+    return this.httpClient.delete(this.base+`post/${postId}/comment/${commentId}`).pipe(catchError(this.handleError));
   }
 
   updatePost(user:UserData, post:Post) {
     const requestBody = {
       "contentString":post.content
     }
-    const updatedPost = this.httpClient.put(this.base+`/post/${post.postId}`, requestBody);
+    const updatedPost = this.httpClient.put(this.base+`post/${post.postId}`, requestBody);
   }
 
   updateComment(user:UserData, post:Post, comment:Comment) {
     const requestBody = {
       "contentString":comment.content
     }
-    const updatedComment = this.httpClient.put(this.base+`/post/${post.postId}/comment/${comment.commentId}`, requestBody);
+    const updatedComment = this.httpClient.put(this.base+`post/${post.postId}/comment/${comment.commentId}`, requestBody);
     // replace updated comment
   }
 

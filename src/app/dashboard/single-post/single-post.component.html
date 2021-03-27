@@ -2,6 +2,7 @@
   <mat-card-title
     >{{ post.userId }} posted at {{ post.postTimestamp }}</mat-card-title
   >
+  <button mat-icon-button (click)="deletePost()" *ngIf="isUsers"><mat-icon>delete_forever</mat-icon></button>
   <mat-card-content>
     {{ post.content }}
   </mat-card-content>
@@ -45,6 +46,7 @@
         <mat-panel-description></mat-panel-description>
       </mat-expansion-panel-header>
       <div *ngFor="let comment of fullComment">
+          <button mat-icon-button (click)="deleteComment(comment.commentId)" *ngIf="comment.userId === this.userService.getUserId()"><mat-icon>delete</mat-icon></button>
           <b>Display name {{comment.userId}}</b><br>
           <p>{{comment.content}}</p>
       </div>

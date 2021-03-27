@@ -16,8 +16,8 @@ export class UserService {
     return this.user.username;
   }
 
-  getUserId():string {
-    return this.user.userId;
+  getUserId():number {
+    return Number.parseInt(this.user.userId);
   }
 
   // since we may not get the displayname field it is default as undefined
