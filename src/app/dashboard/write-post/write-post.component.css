@@ -1,3 +1,7 @@
 #newCard {
   width: 100%;
+  /*
+  position: fixed;
+  top: var(--default-height);
+  */
 }

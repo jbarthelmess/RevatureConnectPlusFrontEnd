@@ -1,6 +1,6 @@
 <mat-card fxFlex="65vw" fxLayout="column" fxLayoutAlign="center">
   <mat-card-title
-    >{{ post.userId }} posted at {{ post.postTimestamp }}</mat-card-title
+    >{{ post.displayName }} posted at {{ post.postTimestamp }}</mat-card-title
   >
   <mat-card-content>
     {{ post.content }}
@@ -45,7 +45,8 @@
         <mat-panel-description></mat-panel-description>
       </mat-expansion-panel-header>
       <div *ngFor="let comment of fullComment">
-          <b>Display name {{comment.userId}}</b><br>
+          <button mat-icon-button (click)="deleteComment(comment.commentId)" *ngIf="comment.userId === this.userService.getUserId()"><mat-icon>delete</mat-icon></button>
+          <b>{{comment.displayName}}</b><br>
           <p>{{comment.content}}</p>
       </div>
     </mat-expansion-panel>

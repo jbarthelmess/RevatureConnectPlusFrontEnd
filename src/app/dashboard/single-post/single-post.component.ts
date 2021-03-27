@@ -19,7 +19,32 @@ export class SinglePostComponent implements OnInit {
   }
 
   addComment() {
-    this.postService.addComment(this.post.postId, this.comment);
+    this.postService.addComment(this.post.postId, this.comment).subscribe((data)=>{
+      let content:string = "";
+      let userId:number = 0;
+      let commentId:number = 0;
+      let postId:number = this.post.postId;
+      let timestamp:number = 0;
+      let displayName:string = "";
+      for(let property in data) {
+        if(property === "contentString"){
+          content = data[property];
+        }
+        if(property === "userId") {
+          userId = data[property];
+        }
+        if(property === "commentId") {
+          commentId = data[property];
+        }
+        if(property === "timestamp") {
+          timestamp = data[property];
+        }
+        if(property === "displayName") {
+          displayName = data[property];
+        }
+      }
+      this.fullComment.push(new Comment(commentId, postId, userId, content, timestamp, displayName));
+    });
     this.comment = "";
   }
 
@@ -39,7 +64,7 @@ export class SinglePostComponent implements OnInit {
     if(!this.commentsLoaded) {
       this.postService.getComments(this.post.postId).subscribe((data:Array<any>)=> {
         for(let commentData of data) {
-          this.fullComment.push(new Comment(commentData.commentId, commentData.postId, commentData.userId, commentData.contentString));
+          this.fullComment.push(new Comment(commentData.commentId, commentData.postId, commentData.userId, commentData.contentString, commentData.timestamp, commentData.displayName));
         }
         console.log(this.fullComment);
       });

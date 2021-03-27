@@ -4,6 +4,8 @@ export class Comment{
     public commentId:number,
     public postId:number,
     public userId:number,
-    public content:string
+    public content:string,
+    public timestamp:number,
+    public displayName:string
   ){}
 }

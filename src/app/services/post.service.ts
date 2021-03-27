@@ -6,7 +6,6 @@ import { Comment } from '../models/comment';
 import { catchError } from 'rxjs/operators';
 import { of, Subject } from 'rxjs';
 import { UserService } from './user.service';
-//import { AuthService } from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +13,8 @@ import { UserService } from './user.service';
 export class PostService {
   base:string = "http://35.225.143.245:8080/";
   showPosts:Post[] = [];
-  postChange:Subject<boolean> = new Subject<boolean>();
+  postAdd:Subject<Post> = new Subject<Post>();
+  postRemove:Subject<number> = new Subject<number>();
 
   constructor(private httpClient: HttpClient, private userService:UserService) {
   }
@@ -35,10 +35,10 @@ export class PostService {
         console.log("You are not logged in");
       } else {
         for(let postData of data) {
-          const newPost = new Post(postData.postId, postData.userId, postData.timestamp,  postData.content, postData.likeCount);
+          const newPost = new Post(postData.postId, postData.userId, postData.timestamp,  postData.content, postData.likeCount, postData.displayName);
           this.showPosts.push(newPost);
         }
-        this.postChange.next(true);
+        this.postAdd.next(newPost);
       }
     });
   }
@@ -56,7 +56,23 @@ export class PostService {
     };
     this.httpClient.post(this.base+`post`, requestBody).pipe(catchError(this.handleError))
     .subscribe((data) => {
-      console.log(data);
+      let postId = 0;
+      let userId = 0;
+      let timestamp = 0;
+      let content = "";
+      let likeCount = 0;
+      let displayName = "";
+      for(let property in data) {
+        if(property === "postId") postId = data[property];
+        if(property === "userId") userId = data[property];
+        if(property === "timestamp") timestamp = data[property];
+        if(property === "content") content = data[property];
+        if(property === "likeCount") likeCount = data[property];
+        if(property === "displayName") displayName = data[property];
+      }
+      const newPost = new Post(postId, userId, timestamp, content, likeCount, displayName);
+      this.showPosts = [newPost, ...this.showPosts];
+      this.postAdd.next(newPost);
     });
   }
 
