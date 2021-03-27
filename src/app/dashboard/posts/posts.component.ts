@@ -11,12 +11,12 @@ export class PostsComponent implements OnInit {
   constructor(private postService:PostService) { }
   posts:Post[] = [];
   ngOnInit(): void {
-    this.postService.getPosts();
-    this.postService.postChange.subscribe((change) =>{
-      if(change) {
-        this.posts = this.postService.showPosts;
-        console.log(this.posts);
-      }
+    this.postService.postAdd.subscribe((change) =>{
+      this.posts = [change, ...this.posts];
     });
+    this.postService.postRemove.subscribe((removed)=> {
+      this.posts.splice(removed, 1);
+    });
+    this.postService.getPosts();
   }
 }
