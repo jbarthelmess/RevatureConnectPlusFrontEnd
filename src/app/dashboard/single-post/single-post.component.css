@@ -6,3 +6,7 @@
 .example-form mat-form-field {
   width: 100%;
 }
+
+:host ::ng-deep .mat-card-header-text {
+  margin:0px;
+}

@@ -21,6 +21,12 @@ export class SignupComponent implements OnInit{
       password: new FormControl('',{validators: [Validators.required, Validators.minLength(6)]}),
       terms: new FormControl('', {validators: [Validators.required]})
     })
+    this.authService.authChange.subscribe((success) => {
+      if(!success) {
+        alert("Username "+ this.signupForm.value.username + " is already taken, please choose another one");
+        this.signupForm.reset();
+      }
+    })
   }
 
   onSubmit(){

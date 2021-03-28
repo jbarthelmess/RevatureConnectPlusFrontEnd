@@ -2,7 +2,7 @@
   <mat-card-header>
     <mat-card-title-group>
       <mat-card-title>{{ post.displayName }}</mat-card-title>
-      <mat-card-subtitle>{{ post.postTimestamp*1000 | date : 'short'}}</mat-card-subtitle>
+      <mat-card-subtitle>{{ post.timestamp*1000 | date : 'short'}}</mat-card-subtitle>
     </mat-card-title-group>
     <div fxFlex></div>
     <button mat-icon-button (click)="deletePost()" *ngIf="isUsers"><mat-icon>delete_forever</mat-icon></button>
@@ -50,9 +50,12 @@
         <mat-panel-description></mat-panel-description>
       </mat-expansion-panel-header>
       <div *ngFor="let comment of fullComment">
+        <div>
+          <b>{{comment.displayName}}</b><br>
+          <p>{{comment.content}}</p>
+        </div>
+        <div fxFlex></div>
         <button mat-icon-button (click)="deleteComment(comment.commentId)" *ngIf="comment.userId === this.userService.getUserId()" fxLayoutAlign="right"><mat-icon>delete</mat-icon></button>
-        <b>{{comment.displayName}}</b><br>
-        <p>{{comment.content}}</p>
       </div>
     </mat-expansion-panel>
   </mat-accordion>

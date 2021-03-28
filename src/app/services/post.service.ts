@@ -132,6 +132,6 @@ export class PostService {
   }
 
   getComments(postId:number) {
-    return this.httpClient.get(this.base+`post/${postId}/comment`).pipe(catchError(this.handleError));
+    return this.httpClient.get(this.base+`/post/${postId}/comment`).pipe(catchError(this.handleError));
   }
 }

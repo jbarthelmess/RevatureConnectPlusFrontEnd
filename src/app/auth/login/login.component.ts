@@ -18,6 +18,12 @@ export class LoginComponent implements OnInit{
       username: new FormControl('', {validators: [Validators.required]}),
       password: new FormControl('', {validators: [Validators.required]})
     });
+    this.authService.authChange.subscribe((success) => {
+      if(!success) {
+        alert("Login Attempt Failed, please try again");
+        this.loginForm.reset();
+      }
+    })
   }
 
   onSubmit(){

@@ -22,6 +22,7 @@ export class AuthService {
       if(Object.keys(data).length === 0) {
         console.log("Registration Attempt failed, please try again with a different username");
         this.authUser = null;
+        this.authChange.next(false);
       } else {
         console.log(data);
         this.authSuccess(data);
@@ -38,6 +39,7 @@ export class AuthService {
       if(Object.keys(data).length === 0) {
         console.log("login attempt failed, please try again");
         this.authUser = null;
+        this.authChange.next(false);
       } else {
         console.log(data);
         this.authSuccess(data);
