@@ -11,7 +11,7 @@ import { UserService } from './user.service';
   providedIn: 'root'
 })
 export class PostService {
-  base:string = "http://35.225.143.245:8080/";
+  base:string = "https://revaprojects.wl.r.appspot.com";
   showPosts:Post[] = [];
   postAdd:Subject<Post> = new Subject<Post>();
   postRemove:Subject<number> = new Subject<number>();
@@ -35,7 +35,7 @@ export class PostService {
       let lowestPost = posts[0];
       let index = 0;
       for(let i = 1; i < posts.length; i++) {
-        if(posts[i].postTimestamp > lowestPost.postTimestamp) {
+        if(posts[i].timestamp > lowestPost.timestamp) {
           lowestPost = posts[i];
           index = i;
         }
@@ -47,7 +47,7 @@ export class PostService {
   }
 
   getPosts() {
-    this.httpClient.get(this.base+"post").pipe(catchError(this.handleError))
+    this.httpClient.get(this.base+"/post").pipe(catchError(this.handleError))
     .subscribe((data:Array<any>) =>{
       if(data.length === 0) {
         console.log("You are not logged in");
@@ -68,14 +68,14 @@ export class PostService {
     let requestBody = {
       "contentString":comment
     };
-    return this.httpClient.post<Comment>(this.base+`post/${post}/comment`, requestBody).pipe(catchError(this.handleError));
+    return this.httpClient.post<Comment>(this.base+`/post/${post}/comment`, requestBody).pipe(catchError(this.handleError));
   }
 
   addPost(post:string) {
     const requestBody = {
       "content":post
     };
-    this.httpClient.post(this.base+`post`, requestBody).pipe(catchError(this.handleError))
+    this.httpClient.post(this.base+`/post`, requestBody).pipe(catchError(this.handleError))
     .subscribe((data) => {
       let postId = 0;
       let userId = 0;
@@ -97,11 +97,11 @@ export class PostService {
   }
 
   addLike(postId:number) {
-    return this.httpClient.post(this.base+`post/${postId}/like`, null).pipe(catchError(this.handleError));
+    return this.httpClient.post(this.base+`/post/${postId}/like`, null).pipe(catchError(this.handleError));
   }
 
   deletePost(postId:number) {
-    this.httpClient.delete(this.base+`post/${postId}`).pipe(catchError(this.handleError)).subscribe((data) =>{
+    this.httpClient.delete(this.base+`/post/${postId}`).pipe(catchError(this.handleError)).subscribe((data) =>{
       for(let i = 0; i < this.showPosts.length; i++) {
         if(this.showPosts[i].postId === postId) {
           this.showPosts.splice(i, 1);
@@ -113,21 +113,21 @@ export class PostService {
   }
 
   deleteComment(postId:number, commentId:number) {
-    return this.httpClient.delete(this.base+`post/${postId}/comment/${commentId}`).pipe(catchError(this.handleError));
+    return this.httpClient.delete(this.base+`/post/${postId}/comment/${commentId}`).pipe(catchError(this.handleError));
   }
 
   updatePost(user:UserData, post:Post) {
     const requestBody = {
       "contentString":post.content
     }
-    const updatedPost = this.httpClient.put(this.base+`post/${post.postId}`, requestBody);
+    const updatedPost = this.httpClient.put(this.base+`/post/${post.postId}`, requestBody);
   }
 
   updateComment(user:UserData, post:Post, comment:Comment) {
     const requestBody = {
       "contentString":comment.content
     }
-    const updatedComment = this.httpClient.put(this.base+`post/${post.postId}/comment/${comment.commentId}`, requestBody);
+    const updatedComment = this.httpClient.put(this.base+`/post/${post.postId}/comment/${comment.commentId}`, requestBody);
     // replace updated comment
   }
 
