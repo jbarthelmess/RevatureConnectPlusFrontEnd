@@ -19,4 +19,10 @@ export class PostsComponent implements OnInit {
     });
     this.postService.getPosts();
   }
+
+  getNextPosts() {
+    const oldest = this.posts[this.posts.length -1].timestamp;
+    this.postService.getNext50Posts(oldest);
+    this.posts = [];
+  }
 }

@@ -134,4 +134,22 @@ export class PostService {
   getComments(postId:number) {
     return this.httpClient.get(this.base+`/post/${postId}/comment`).pipe(catchError(this.handleError));
   }
+
+  getNext50Posts(timestamp:number) {
+    return this.httpClient.get(this.base+`/post/next/${timestamp}`).pipe(catchError(this.handleError))
+    .subscribe((data:Array<any>) =>{
+      if(data.length === 0) {
+        console.log("You are not logged in");
+      } else {
+        for(let postData of data) {
+          const newPost = new Post(postData.postId, postData.userId, postData.timestamp,  postData.content, postData.likeCount, postData.displayName);
+          this.showPosts.push(newPost);
+        }
+        this.showPosts = this.sortPostsByTimeStamp(this.showPosts);
+        for(let i = this.showPosts.length-1; i > -1 ; i--) {
+          this.postAdd.next(this.showPosts[i]);
+        }
+      }
+    });
+  }
 }
