@@ -4,7 +4,7 @@ export class Post{
   constructor(
     public postId:number,
     public userId:number,
-    public postTimestamp:number|DatePipe,
+    public postTimestamp:number,
     public content:string,
     public likeCount?:number,
     public displayName?:string
