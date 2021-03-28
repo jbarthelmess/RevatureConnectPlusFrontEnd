@@ -8,7 +8,7 @@ import { catchError } from 'rxjs/operators';
 
 @Injectable({providedIn: 'root'})
 export class UserService {
-  base:string = "http://35.225.143.245:8080/";
+  base:string = "https://revaprojects.wl.r.appspot.com";
   user:UserData = null;
   constructor(private httpClient: HttpClient) { }
 
@@ -56,7 +56,7 @@ export class UserService {
   }
 
   login(credentials:Auth) {
-    return this.httpClient.post<UserData>(this.base+"user/login", credentials).pipe(catchError((error:HttpErrorResponse, credentials)=>{
+    return this.httpClient.post<UserData>(this.base+"/user/login", credentials).pipe(catchError((error:HttpErrorResponse, credentials)=>{
       if(error.error instanceof ErrorEvent) {
         console.log("Something happened on the client side:", error.error.message);
       } else {
@@ -67,7 +67,7 @@ export class UserService {
   }
 
   registerUser(credentials) {
-    return this.httpClient.post(this.base+"user/registration", credentials).pipe(catchError((error:HttpErrorResponse, credentials)=>{
+    return this.httpClient.post(this.base+"/user/registration", credentials).pipe(catchError((error:HttpErrorResponse, credentials)=>{
       if(error.error instanceof ErrorEvent) {
         console.log("Something happened on the client side:", error.error.message);
       } else {

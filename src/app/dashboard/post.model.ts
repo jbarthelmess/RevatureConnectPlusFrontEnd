@@ -4,4 +4,5 @@ export interface Post {
   timeStamp: string;
   content: string;
   likeCount?: string;
+  displayName?: string;
 }

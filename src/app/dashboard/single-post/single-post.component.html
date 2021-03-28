@@ -1,6 +1,6 @@
 <mat-card fxFlex="65vw" fxLayout="column" fxLayoutAlign="center">
   <mat-card-title
-    >{{ post.displayName }} posted at {{ post.postTimestamp }}</mat-card-title
+    >{{ post.displayName }} posted at {{ post.timestamp }}</mat-card-title
   >
   <button mat-icon-button (click)="deletePost()" *ngIf="isUsers"><mat-icon>delete_forever</mat-icon></button>
   <mat-card-content>
