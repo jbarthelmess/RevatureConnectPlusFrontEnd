@@ -125,6 +125,10 @@
               "devServerTarget": "revature-connect-plus-front-end:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {}
         }
       }
     }
