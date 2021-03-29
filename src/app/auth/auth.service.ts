@@ -41,7 +41,7 @@ export class AuthService {
         this.authUser = null;
         this.authChange.next(false);
       } else {
-        console.log(data);
+        //console.log(data);
         this.authSuccess(data);
       }
       //console.log(data);
@@ -50,7 +50,7 @@ export class AuthService {
 
   logout() {
     this.postService.showPosts = [];
-    this.authChange.next(false);
+    //this.authChange.next(false);
     this.authUser = null;
     this.userService.setUser(null);
     this.router.navigate(['/login'])

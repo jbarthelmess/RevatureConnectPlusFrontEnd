@@ -96,11 +96,11 @@ export class SinglePostComponent implements OnInit {
   loadComments() {
     if(!this.commentsLoaded) {
       this.postService.getComments(this.post.postId).subscribe((data:Array<any>)=> {
-        console.log(data);
+        //console.log(data);
         for(let commentData of data) {
           this.fullComment.push(new Comment(commentData.commentId, commentData.postId, commentData.userId, commentData.contentString, commentData.timestamp, commentData.displayName));
         }
-        console.log(this.fullComment);
+        //console.log(this.fullComment);
         this.fullComment = this.sortCommentsByTimeStamp(this.fullComment);
       });
       this.commentsLoaded = true;
