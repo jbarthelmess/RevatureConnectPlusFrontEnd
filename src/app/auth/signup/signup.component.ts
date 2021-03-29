@@ -12,6 +12,7 @@ import { UserData } from '../user.model';
 export class SignupComponent implements OnInit{
   private user: UserData;
   signupForm: FormGroup;
+  lastSuccess:boolean = false;
 
   constructor(private authService: AuthService){}
 
@@ -22,10 +23,11 @@ export class SignupComponent implements OnInit{
       terms: new FormControl('', {validators: [Validators.required]})
     })
     this.authService.authChange.subscribe((success) => {
-      if(!success) {
+      if(!success && !this.lastSuccess) {
         alert("Username "+ this.signupForm.value.username + " is already taken, please choose another one");
         this.signupForm.reset();
       }
+      this.lastSuccess = success;
     })
   }
 
