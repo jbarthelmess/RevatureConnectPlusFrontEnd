@@ -8,6 +8,7 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit{
+  lastSuccess:boolean = false;
 
   loginForm: FormGroup;
 
@@ -19,10 +20,11 @@ export class LoginComponent implements OnInit{
       password: new FormControl('', {validators: [Validators.required]})
     });
     this.authService.authChange.subscribe((success) => {
-      if(!success) {
+      if(!success && !this.lastSuccess) {
         alert("Login Attempt Failed, please try again");
         this.loginForm.reset();
       }
+      this.lastSuccess = success;
     })
   }
 
